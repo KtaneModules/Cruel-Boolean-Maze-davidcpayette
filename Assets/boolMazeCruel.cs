@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System.Text.RegularExpressions;
 using KMHelper;
 using System.Collections;
 
@@ -98,10 +99,10 @@ public class boolMazeCruel : MonoBehaviour
         CheckBadEnding();
 
         //Log stuff
-        Debug.LogFormat("[BooleanMaze #{2}] Starting Location:({0},{1})", initrow, initcol, _moduleId);
-        Debug.LogFormat("[BooleanMaze #{2}] Ending Location:({0},{1})", correctgridrow, correctgridcol, _moduleId);
-        Debug.LogFormat("[BooleanMaze #{2}] Not Grid Location:({0},{1})", initsmallrow, initsmallcol, _moduleId);
-        Debug.LogFormat("[BooleanMaze #{1}] Display is {0}", booldisplay, _moduleId);
+        Debug.LogFormat("[Cruel Boolean Maze #{2}] Starting Location: ({0},{1})", initrow, initcol, _moduleId);
+        Debug.LogFormat("[Cruel Boolean Maze #{2}] Ending Location: ({0},{1})", correctgridrow, correctgridcol, _moduleId);
+        Debug.LogFormat("[Cruel Boolean Maze #{2}] Not Grid Location: ({0},{1})", initsmallrow, initsmallcol, _moduleId);
+        Debug.LogFormat("[Cruel Boolean Maze #{1}] Display is {0}", booldisplay, _moduleId);
 
         //Handles button presses
         ButtonUp.OnInteract += delegate () { HandlePress("u"); return false; };
@@ -202,13 +203,13 @@ public class boolMazeCruel : MonoBehaviour
                         {
                             gridPosRow = getCheckIndex(gridPosRow - 1);
                             smallgridPosRow = getCheckIndexSmall(smallgridPosRow - 1);
-                            Debug.LogFormat("[BooleanMaze #{2}] Successfully moved up to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
-                            Debug.LogFormat("[BooleanMaze #{2}] Not Grid moved up to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Successfully moved up to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Not Grid moved up to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
                         }
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[BooleanMaze #{2}] Attempted to move up to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow-1, gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow - 1, gridPosCol]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move up to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow-1, gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow - 1, gridPosCol]), booldisplay);
                         }
                         ButtonUp.AddInteractionPunch();
                     }
@@ -219,13 +220,13 @@ public class boolMazeCruel : MonoBehaviour
                         {
                             gridPosCol = getCheckIndex(gridPosCol - 1);
                             smallgridPosCol = getCheckIndexSmall(smallgridPosCol - 1);
-                            Debug.LogFormat("[BooleanMaze #{2}] Successfully moved left to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
-                            Debug.LogFormat("[BooleanMaze #{2}] Not Grid moved left to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Successfully moved left to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Not Grid moved left to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
                         }
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[BooleanMaze #{2}] Attempted to move left to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, gridPosCol-1, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow, gridPosCol - 1]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move left to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, gridPosCol-1, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow, gridPosCol - 1]), booldisplay);
                         }
                         ButtonLeft.AddInteractionPunch();
                     }
@@ -236,13 +237,13 @@ public class boolMazeCruel : MonoBehaviour
                         {
                             gridPosCol = getCheckIndex(gridPosCol + 1);
                             smallgridPosCol = getCheckIndexSmall(smallgridPosCol + 1);                    
-                            Debug.LogFormat("[BooleanMaze #{2}] Successfully moved right to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
-                            Debug.LogFormat("[BooleanMaze #{2}] Not Grid moved right to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Successfully moved right to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Not Grid moved right to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
                         }
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[BooleanMaze #{2}] Attempted to move right to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, gridPosCol+1, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow, gridPosCol + 1]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move right to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, gridPosCol+1, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow, gridPosCol + 1]), booldisplay);
                         }
                         ButtonRight.AddInteractionPunch();
                     }
@@ -253,13 +254,13 @@ public class boolMazeCruel : MonoBehaviour
                         {
                             gridPosRow = getCheckIndex(gridPosRow + 1);
                             smallgridPosRow = getCheckIndexSmall(smallgridPosRow + 1);
-                            Debug.LogFormat("[BooleanMaze #{2}] Successfully moved down to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
-                            Debug.LogFormat("[BooleanMaze #{2}] Not Grid moved down to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Successfully moved down to ({0},{1})", gridPosRow, gridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Not Grid moved down to ({0},{1})", smallgridPosRow, smallgridPosCol, _moduleId);
                         }
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[BooleanMaze #{2}] Attempted to move down to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow+1, gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow + 1, gridPosCol]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move down to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow+1, gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow + 1, gridPosCol]), booldisplay);
                         }
                         ButtonDown.AddInteractionPunch();
                     }
@@ -269,7 +270,7 @@ public class boolMazeCruel : MonoBehaviour
                         if (!isStuck())
                         {                           
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[BooleanMaze #{2}] Defuser pressed Stuck? at ({0},{1}) but there was a legal move, strike, position reset to ({3},{4}). Not grid reset to ({5},{6}).", gridPosRow, gridPosCol, _moduleId, initrow, initcol, initsmallrow, initsmallcol);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Defuser pressed Stuck? at ({0},{1}) but there was a legal move, strike, position reset to ({3},{4}). Not grid reset to ({5},{6}).", gridPosRow, gridPosCol, _moduleId, initrow, initcol, initsmallrow, initsmallcol);
 
                             //Reset position to initial starting location! 
                             gridPosRow = initrow;
@@ -279,7 +280,7 @@ public class boolMazeCruel : MonoBehaviour
                         }
                         else
                         {
-                            Debug.LogFormat("[BooleanMaze #{2}] Defuser correctly pressed Stuck? at ({0},{1}) with no legal moves. Display changed.", gridPosRow, gridPosCol, _moduleId);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Defuser correctly pressed Stuck? at ({0},{1}) with no legal moves. Display changed.", gridPosRow, gridPosCol, _moduleId);
                             stuck = true; 
                         }
                         ButtonStuck.AddInteractionPunch();
@@ -291,7 +292,7 @@ public class boolMazeCruel : MonoBehaviour
                         gridPosCol = initcol;
                         smallgridPosRow = initsmallrow;
                         smallgridPosCol = initsmallcol;
-                        Debug.LogFormat("[BooleanMaze #{2}] Defuser pressed Reset! Position reset to ({0},{1}). Not grid reset to ({3},{4}).", initrow, initcol, _moduleId, initsmallrow, initsmallcol);
+                        Debug.LogFormat("[Cruel Boolean Maze #{2}] Defuser pressed Reset! Position reset to ({0},{1}). Not grid reset to ({3},{4}).", initrow, initcol, _moduleId, initsmallrow, initsmallcol);
                         ButtonReset.AddInteractionPunch();
                     }
                     break;
@@ -330,7 +331,7 @@ public class boolMazeCruel : MonoBehaviour
         }
 
         NumDisplay.text = booldisplay + "";
-        Debug.LogFormat("[BooleanMaze #{1}] Display updated to {0}", booldisplay, _moduleId);
+        Debug.LogFormat("[Cruel Boolean Maze #{1}] Display updated to {0}", booldisplay, _moduleId);
     }
 
     /// This function is used to determine if the defuser is completely stuck when pressing the Stuck? button
@@ -405,7 +406,7 @@ public class boolMazeCruel : MonoBehaviour
     {
         if (gridPosRow == correctgridrow && gridPosCol == correctgridcol)
         {
-            Debug.LogFormat("[BooleanMaze #{0}] Defuser reached the goal. Module solved.", _moduleId);
+            Debug.LogFormat("[Cruel Boolean Maze #{0}] Defuser reached the goal. Module solved.", _moduleId);
             BombModule.HandlePass();          
             _isSolved = true;
         }
@@ -477,5 +478,59 @@ public class boolMazeCruel : MonoBehaviour
         if (index > 4) index = 0;
         if (index < 0) index = 4;
         return index;
+    }
+
+    //twitch plays
+    private bool inputIsValid(string cmd)
+    {
+        string[] validstuff = { "u", "up", "d", "down", "l", "left", "r", "right", "reset", "reset!", "stuck", "stuck?" };
+        if (validstuff.Contains(cmd.ToLower()))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    #pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"!{0} press <u/d/l/r/reset/stuck> [Presses the specified button]";
+    #pragma warning restore 414
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+        string[] parameters = command.Split(' ');
+        if (Regex.IsMatch(parameters[0], @"^\s*press\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            if (parameters.Length == 2)
+            {
+                if (inputIsValid(parameters[1]))
+                {
+                    yield return null;
+                    if (parameters[1].ToLower().Equals("u") || parameters[1].ToLower().Equals("up"))
+                    {
+                        ButtonUp.OnInteract();
+                    }
+                    else if (parameters[1].ToLower().Equals("d") || parameters[1].ToLower().Equals("down"))
+                    {
+                        ButtonDown.OnInteract();
+                    }
+                    else if (parameters[1].ToLower().Equals("r") || parameters[1].ToLower().Equals("right"))
+                    {
+                        ButtonRight.OnInteract();
+                    }
+                    else if (parameters[1].ToLower().Equals("l") || parameters[1].ToLower().Equals("left"))
+                    {
+                        ButtonLeft.OnInteract();
+                    }
+                    else if (parameters[1].ToLower().Equals("reset") || parameters[1].ToLower().Equals("reset!"))
+                    {
+                        ButtonReset.OnInteract();
+                    }
+                    else if (parameters[1].ToLower().Equals("stuck") || parameters[1].ToLower().Equals("stuck?"))
+                    {
+                        ButtonStuck.OnInteract();
+                    }
+                }
+            }
+            yield break;
+        }
     }
 }

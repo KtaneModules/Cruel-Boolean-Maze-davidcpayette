@@ -209,7 +209,7 @@ public class boolMazeCruel : MonoBehaviour
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move up to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow-1, gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow - 1, gridPosCol]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move up to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", getCheckIndex(gridPosRow-1), gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(gridPosRow-1,gridPosCol), booldisplay);
                         }
                         ButtonUp.AddInteractionPunch();
                     }
@@ -226,7 +226,7 @@ public class boolMazeCruel : MonoBehaviour
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move left to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, gridPosCol-1, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow, gridPosCol - 1]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move left to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, getCheckIndex(gridPosCol-1), _moduleId, gridPosRow, gridPosCol, GateCheck(gridPosRow, gridPosCol - 1), booldisplay);
                         }
                         ButtonLeft.AddInteractionPunch();
                     }
@@ -243,7 +243,7 @@ public class boolMazeCruel : MonoBehaviour
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move right to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, gridPosCol+1, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow, gridPosCol + 1]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move right to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow, getCheckIndex(gridPosCol+1), _moduleId, gridPosRow, gridPosCol, GateCheck(gridPosRow, gridPosCol + 1), booldisplay);
                         }
                         ButtonRight.AddInteractionPunch();
                     }
@@ -260,7 +260,7 @@ public class boolMazeCruel : MonoBehaviour
                         else
                         {
                             BombModule.HandleStrike();
-                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move down to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", gridPosRow+1, gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(grid[gridPosRow + 1, gridPosCol]), booldisplay);
+                            Debug.LogFormat("[Cruel Boolean Maze #{2}] Attempted to move down to ({0},{1}) with display {6} but the {5} gate returned 0, strike, Current position ({3},{4})", getCheckIndex(gridPosRow+1), gridPosCol, _moduleId, gridPosRow, gridPosCol, GateCheck(gridPosRow + 1, gridPosCol), booldisplay);
                         }
                         ButtonDown.AddInteractionPunch();
                     }
@@ -414,8 +414,11 @@ public class boolMazeCruel : MonoBehaviour
     }
 
     //Used for debug log
-    private string GateCheck(int gateId)
+    private string GateCheck(int row, int col)
     {
+        row = getCheckIndex(row);
+        col = getCheckIndex(col);
+        int gateId = grid[row, col];
         string gateName = "Gate Not Found";
         switch (gateId)
         {
